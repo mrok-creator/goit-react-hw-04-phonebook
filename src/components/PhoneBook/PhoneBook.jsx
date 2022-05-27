@@ -55,7 +55,7 @@ function PhoneBook() {
         return [...prevContacts, newContacts];
       });
     },
-    [setContacts]
+    [setContacts, contacts]
   );
 
   const changeFilter = useCallback(
@@ -65,10 +65,13 @@ function PhoneBook() {
     [setFilter]
   );
 
-  const deleteContacts = id => {
-    const res = contacts.filter(item => item.id !== id);
-    setContacts(res);
-  };
+  const deleteContacts = useCallback(
+    id => {
+      const res = contacts.filter(item => item.id !== id);
+      setContacts(res);
+    },
+    [contacts, setContacts]
+  );
 
   const getFilteredContacts = () => {
     if (!filter) {
