@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { nanoid } from 'nanoid';
 
 import ContactForm from './ContactForm';
@@ -36,28 +36,34 @@ function PhoneBook() {
     }
   }, []);
 
-  const addContacts = data => {
-    const isDuplicated = contacts.find(item => item.name === data.name);
-    if (isDuplicated) {
-      alert(`${data.name} is already in your Phonebook`);
-      return;
-    }
+  const addContacts = useCallback(
+    data => {
+      const isDuplicated = contacts.find(item => item.name === data.name);
+      if (isDuplicated) {
+        alert(`${data.name} is already in your Phonebook`);
+        return;
+      }
 
-    //? add new  contact logic
-    setContacts(prevContacts => {
-      const { name, number } = data;
-      const newContacts = {
-        id: nanoid(),
-        name,
-        number,
-      };
-      return [...prevContacts, newContacts];
-    });
-  };
+      //? add new  contact logic
+      setContacts(prevContacts => {
+        const { name, number } = data;
+        const newContacts = {
+          id: nanoid(),
+          name,
+          number,
+        };
+        return [...prevContacts, newContacts];
+      });
+    },
+    [setContacts]
+  );
 
-  const changeFilter = e => {
-    setFilter(e.target.value);
-  };
+  const changeFilter = useCallback(
+    e => {
+      setFilter(e.target.value);
+    },
+    [setFilter]
+  );
 
   const deleteContacts = id => {
     const res = contacts.filter(item => item.id !== id);

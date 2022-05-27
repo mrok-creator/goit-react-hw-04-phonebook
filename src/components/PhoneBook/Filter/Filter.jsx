@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import s from './filter.module.css';
@@ -26,4 +27,4 @@ Filter.propTypes = {
   filter: PropTypes.string.isRequired,
 };
 
-export default Filter;
+export default memo(Filter);
