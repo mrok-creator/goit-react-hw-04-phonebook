@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import ContactListItem from './ContactListItem';
@@ -31,4 +30,4 @@ ContactList.propTypes = {
   ),
 };
 
-export default memo(ContactList);
+export default ContactList;
